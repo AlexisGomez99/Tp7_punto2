@@ -13,6 +13,7 @@ import java.util.Map;
 
 import modelo.DBFacade;
 
+
 public class DBFacadeImplementacion implements DBFacade{
 	
 	private static final String CONTROLADOR = "com.mysql.jdbc.Driver";
@@ -65,7 +66,7 @@ public class DBFacadeImplementacion implements DBFacade{
 			sent= conexion.createStatement();
 			ResultSet resul= sent.executeQuery(sql);//"Select * from `listafacade` u"
 			int i=0;
-			String[] strings= null;
+			String[] strings = new String[3];
 			while(resul.next()) {
 				strings[i]=resul.getString("u.valor"); 
 				i++;
@@ -83,6 +84,21 @@ public class DBFacadeImplementacion implements DBFacade{
 	public void close() {
 		try {
 			this.conexion.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public void agregarValor(String valor, String clave) {
+		
+		try {
+		
+			Statement sent;
+			sent= conexion.createStatement();
+			sent.executeUpdate("INSERT INTO `listafacade`(`clave`, `valor`) VALUES ('"+clave+"','"+valor+"')");	
+			sent.close();
+
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

@@ -8,6 +8,7 @@ public interface DBFacade {
 	 * Abre una conexión a una base de datos
 	 */
 	public void open();
+	public void agregarValor(String valor, String clave);
 
 	/**
 	 * Ejecuta una sentencia SQL.
